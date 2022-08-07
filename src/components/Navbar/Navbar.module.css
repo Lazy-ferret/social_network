@@ -1,0 +1,14 @@
+.nav {
+    background-color: cadetblue;
+    grid-area: n;
+  
+  }
+
+.item {
+    color:antiquewhite
+}
+
+.active {
+  color: coral;
+}
+
