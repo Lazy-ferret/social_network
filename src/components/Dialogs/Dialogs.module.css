@@ -7,7 +7,10 @@
     padding: 10px;
 }
 
-.dialog {}
+.dialog {
+    color: white;
+    text-decoration: none;
+}
 
 .dialog.active {
     color: goldenrod;
