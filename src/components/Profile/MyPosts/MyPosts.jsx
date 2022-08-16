@@ -2,15 +2,19 @@ import React from "react";
 import s from './MyPosts.module.css'
 import Post from "./Post/Post";
 
-export default function MyPosts({ posts }) {
-    const postsElements = posts.map(post => <Post message={post.message} likesCount={post.likesCount} key={post.id} />
+export default function MyPosts(props) {
+   
+   
+    const postsElements = props.posts.map(post => <Post message={post.message} likesCount={post.likesCount} key={post.id} />
     )
+
 
 const newPostElement = React.createRef()
 
-    const addPost = () => {
+    const addNewPost = () => {
+        
         let text = newPostElement.current.value
-        alert(text)
+        props.addPost(text)
     }
 
     return (
@@ -21,7 +25,7 @@ const newPostElement = React.createRef()
                     <textarea ref={newPostElement}></textarea>
                 </div>
                 <div>
-                    <button onClick={addPost}>Add post</button>
+                    <button onClick={addNewPost}>Add post</button>
                 </div>
             </div>
             <div className={s.posts}>
