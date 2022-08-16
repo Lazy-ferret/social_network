@@ -4,7 +4,7 @@ import s from './Dialogs.module.css'
 import Message from './Message/Message'
 
 const Dialogs = (props) => {
-    const { messages, dialogs } = props
+    const { messages, dialogs } = props.state
 
     const dialogsElements = dialogs.map(dialog => <DialogItem name={dialog.name} key={dialog.id} id={dialog.id} />)
 

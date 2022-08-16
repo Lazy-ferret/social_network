@@ -2,7 +2,7 @@ import React from "react";
 import s from './Post.module.css'
 
 export default function Post(props) {
-    const { message, likecounts } = props
+    const { message, likesCount } = props
 
     return (
 
@@ -12,7 +12,7 @@ export default function Post(props) {
             {message}
             <div>
                 <span>like</span>
-                <span>{likecounts}</span>
+                <span>{likesCount}</span>
             </div>
 
 
