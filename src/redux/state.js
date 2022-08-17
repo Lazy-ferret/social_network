@@ -20,7 +20,8 @@ const state = {
             { id: 3, name: 'Nickel' },
             { id: 4, name: 'Lisa' },
             { id: 5, name: 'Myshka' }
-        ]
+        ], 
+        newMessageText: ''
     }
 }
 
@@ -40,6 +41,25 @@ export const addPost = () => {
 export const updateNewPostText = (newText) => {
     state.profilePage.newPostText = newText
     rerenderEntireTree(state)
+}
+
+export const addMessage = () => {
+
+    const newMessage =  { 
+        id: 5, 
+        message: state.dialogsPage.newMessageText
+     }
+    state.dialogsPage.messages.push(newMessage) 
+    state.dialogsPage.newMessageText = ''
+    rerenderEntireTree(state)
+    console.log(state)
+}
+
+export const updateNewMessageText = (newText) => {
+    state.dialogsPage.newMessageText = newText
+    
+    rerenderEntireTree(state)
+    console.log(state)
 }
 
 export default state
