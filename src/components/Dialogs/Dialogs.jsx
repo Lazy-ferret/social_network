@@ -1,5 +1,5 @@
 import React from 'react'
-import { addMessageActionCreator, udpateNewMessageTextActionCreator } from '../../redux/state'
+import { addMessageCreator, udpateNewMessageTextCreator } from '../../redux/state'
 import DialogItem from './DialogItem/DialogItem'
 import s from './Dialogs.module.css'
 import Message from './Message/Message'
@@ -11,15 +11,15 @@ const Dialogs = (props) => {
 
     const messagesElements = messages.map(message => <Message message={message.message} key={message.id} />)
 
-    const newMsgElement = React.createRef()
+    // const newMsgElement = React.createRef()
 
-    const onMessageChange = () => {
-        let text = newMsgElement.current.value
-        props.dispatch(udpateNewMessageTextActionCreator(text))
+    const onMessageChange = (e) => {
+        let text = e.target.value
+        props.dispatch(udpateNewMessageTextCreator(text))
     }
 
-    const addNewMessage = () => {
-        props.dispatch(addMessageActionCreator())
+    const onAddNewMessageClick = () => {
+        props.dispatch(addMessageCreator())
     }
 
     return (
@@ -29,17 +29,17 @@ const Dialogs = (props) => {
             </div>
 
             <div className={s.messages}>
-                {messagesElements}
+                <div>{messagesElements}</div>
 
                 <div>
                     <div>
                         <textarea
-                            ref={newMsgElement}
+                            // ref={newMsgElement}
                             value={newMessageText}
                             onChange={onMessageChange} />
                     </div>
                     <div>
-                        <button onClick={addNewMessage}>Add post</button>
+                        <button onClick={onAddNewMessageClick}>Send</button>
                     </div>
                 </div>
             </div>
