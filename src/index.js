@@ -8,14 +8,12 @@ import { BrowserRouter } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-export const rerenderEntireTree = (state) => {
+export const rerenderEntireTree = () => {
     root.render(
         <React.StrictMode>
             <BrowserRouter>
                 <App
-                    state={state}
-                    dispatch={store.dispatch.bind(store)}
-
+                    store={store}
                 />
             </BrowserRouter>
         </React.StrictMode>
@@ -29,7 +27,4 @@ store.subscribe(() => {
     rerenderEntireTree(state)
 })
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

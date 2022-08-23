@@ -1,8 +1,6 @@
 import React from "react";
-import { addPostCreator, udpateNewPostTextCreator } from "../../../redux/profileReducer";
 import s from './MyPosts.module.css'
 import Post from "./Post/Post";
-
 
 export default function MyPosts(props) {
 
@@ -10,13 +8,13 @@ export default function MyPosts(props) {
 
     const newPostElement = React.createRef()
 
-    const onAddNewPostClick = () => {
-        props.dispatch(addPostCreator())
+    const onAddPostClick = () => {
+        props.addPost()
     }
 
     const onPostChange = () => {
         let text = newPostElement.current.value
-        props.dispatch(udpateNewPostTextCreator(text))
+        props.udpateNewPostText(text)
     }
 
     return (
@@ -24,12 +22,13 @@ export default function MyPosts(props) {
             <h3>My posts</h3>
             <div>
                 <div>
-                    <textarea ref={newPostElement}
+                    <textarea
+                        ref={newPostElement}
                         value={props.newPostText}
                         onChange={onPostChange} />
                 </div>
                 <div>
-                    <button onClick={onAddNewPostClick}>Add post</button>
+                    <button onClick={onAddPostClick}>Add post</button>
                 </div>
             </div>
             <div className={s.posts}>

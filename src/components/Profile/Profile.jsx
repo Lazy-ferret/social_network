@@ -1,6 +1,5 @@
 import React from "react";
-import MyPosts from "./MyPosts/MyPosts";
-import s from './Profile.module.css'
+import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
 export default function Profile(props) {
@@ -8,14 +7,8 @@ export default function Profile(props) {
     return (
         <div >
             <ProfileInfo />
-            <MyPosts
-                posts={props.state.posts}
-                dispatch={props.dispatch}
-                newPostText={props.state.newPostText}
-
-                // updateNewPostText={props.updateNewPostText}
-                // 
-
+            <MyPostsContainer
+                store={props.store}
             />
         </div>
     )
