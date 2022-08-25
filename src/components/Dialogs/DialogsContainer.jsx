@@ -41,7 +41,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        udpateNewMessageTex: (text) => {
+        udpateNewMessageText: (text) => {
             dispatch(udpateNewMessageTextCreator(text))
         }, 
         onMessageSend: () => { dispatch(addMessageCreator())}
