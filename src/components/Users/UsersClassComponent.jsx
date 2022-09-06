@@ -1,39 +1,31 @@
-// This component not used in App cause UsersClassComponent added 
 import axios from 'axios'
 import React from 'react'
 import styles from './Users.module.css'
 import userPhoto from '../../assets/images/user.jpg'
 
-const Users = (props) => {
+class Users extends React.Component {
 
-    const getUsers = () => {
-        if (props.users.length === 0) {
+    constructor(props) {
+        super(props)
+        if (this.props.users.length === 0) {
             axios
                 .get('https://social-network.samuraijs.com/api/1.0/users')
                 .then(response => {
-                    props.setUsers(response.data.items)
+                    this.props.setUsers(response.data.items)
                 })
         }
     }
 
-    return (
-        <div>
-            <button onClick={getUsers}>Get users</button>
+    render() {
+        return <div>
             {
-                props.users.map(user => <div key={user.id}>
+                this.props.users.map(user => <div key={user.id}>
                     <span>
-                        <div>
-                            <img src={user.photos.small !== null
-                                ? user.photos.small
-                                : userPhoto}
-                                className={styles.usersPhoto}
-                                alt='user_photo' />
-                        </div>
+                        <div><img src={user.photos.small !== null ? user.photos.small : userPhoto} className={styles.usersPhoto} /></div>
                         <div>
                             {user.followed
-                                ? <button onClick={() => props.unfollow(user.id)}>Unfollow</button>
-                                : <button onClick={() => props.follow(user.id)}>Follow</button>}
-
+                                ? <button onClick={() => this.props.unfollow(user.id)}>Unfollow</button>
+                                : <button onClick={() => this.props.follow(user.id)}>Follow</button>}
                         </div>
                     </span>
 
@@ -51,8 +43,7 @@ const Users = (props) => {
             }
 
         </div>
-    )
+    }
 }
 
 export default Users
-
