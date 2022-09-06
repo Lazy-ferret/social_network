@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { followCreator, setUsersCreator, unfollowCreator } from '../../redux/usersReducer'
+import { deleteUsersCreator, followCreator, setUsersCreator, unfollowCreator } from '../../redux/usersReducer'
 // import Users from './Users'
 import Users from './UsersClassComponent'
 
@@ -20,6 +20,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         setUsers: (users) => {
             dispatch(setUsersCreator(users))
+        }, 
+        deleteUsers: () => {
+            dispatch(deleteUsersCreator())
         }
     }
 }
