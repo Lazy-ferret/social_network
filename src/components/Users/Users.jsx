@@ -1,24 +1,27 @@
-// This component not used in App cause UsersClassComponent added 
-import axios from 'axios'
 import React from 'react'
 import styles from './Users.module.css'
 import userPhoto from '../../assets/images/user.jpg'
 
 const Users = (props) => {
 
-    const getUsers = () => {
-        if (props.users.length === 0) {
-            axios
-                .get('https://social-network.samuraijs.com/api/1.0/users')
-                .then(response => {
-                    props.setUsers(response.data.items)
-                })
-        }
+    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
+    let pages = []
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i)
     }
 
     return (
         <div>
-            <button onClick={getUsers}>Get users</button>
+            <div>
+                {pages.map(p => {
+                    return <span
+                        className={props.currentPage === p ? styles.selectedPage : ''}
+                        onClick={(e) => { props.onPageChanged(p) }}
+                        key={p}
+                    >{p}</span>
+                })}
+
+            </div>
             {
                 props.users.map(user => <div key={user.id}>
                     <span>
@@ -33,7 +36,6 @@ const Users = (props) => {
                             {user.followed
                                 ? <button onClick={() => props.unfollow(user.id)}>Unfollow</button>
                                 : <button onClick={() => props.follow(user.id)}>Follow</button>}
-
                         </div>
                     </span>
 
@@ -49,7 +51,6 @@ const Users = (props) => {
                     </span>
                 </div>)
             }
-
         </div>
     )
 }
