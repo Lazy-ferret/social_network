@@ -24,7 +24,6 @@ class HeaderContainer extends React.Component {
             <Header {...this.props} />
         )
     }
-
 }
 
 const mapStateToProps = (state) => ({
