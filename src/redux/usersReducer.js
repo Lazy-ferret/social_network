@@ -82,7 +82,7 @@ export const setTotalUsersCount = (totalUsersCount) => ({ type: SET_TOTAL_USERS_
 export const toggleIsFetching = (isFetching) => ({ type: TOGGLE_IS_FETCHING, isFetching })
 export const toggleFollowingProgress = (followingInProgress, userId) => ({ type: TOGGLE_IS_FOLLOWING_PROGRESS, followingInProgress, userId })
 
-// Thunk Creator
+// Thunk Creators
 export const getUsers = (currentPage, pageSize) => {
     return (dispatch) => {
         dispatch(toggleIsFetching(true))
@@ -109,7 +109,6 @@ export const follow = (userId) => {
 
 }
 
-
 export const unfollow = (userId) => {
     return (dispatch) => {
         dispatch(toggleFollowingProgress(true, userId))
@@ -121,8 +120,8 @@ export const unfollow = (userId) => {
                 dispatch(toggleFollowingProgress(false, userId))
             })
     }
-
 }
+
 
 export default usersReducer
 
