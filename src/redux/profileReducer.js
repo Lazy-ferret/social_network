@@ -53,13 +53,11 @@ export const setUserProfile = (profile) => ({
     type: SET_USER_PROFILE, profile
 })
 
-export const getUserProfile = (userId) => {
-    return (dispatch) => {
-        usersAPI.getUserProfile(userId)
-            .then(data => {
-                dispatch(setUserProfile(data))
-            })
-    }
+export const getUserProfile = (userId) => (dispatch) => {
+    usersAPI.getUserProfile(userId)
+        .then(data => {
+            dispatch(setUserProfile(data))
+        })
 }
 
 export default profileReducer
