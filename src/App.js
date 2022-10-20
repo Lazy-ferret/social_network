@@ -3,6 +3,7 @@ import './App.css';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import Header from './components/Header/Header';
 import HeaderContainer from './components/Header/HeaderContainer';
+import Login from './components/Login/Login';
 import Music from './components/Music/Music';
 import Navbar from './components/Navbar/Navbar';
 import News from './components/News/News';
@@ -34,6 +35,10 @@ function App(props) {
             element={<UsersContainer />}
           />
 
+          <Route
+            path="/login"
+            element={<Login />}
+          />
 
           <Route path="/news"
             element={<News />} />
