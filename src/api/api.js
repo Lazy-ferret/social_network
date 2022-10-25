@@ -14,7 +14,7 @@ export const usersAPI = {
             .get(`users?page=${currentPage}&count=${pageSize}`)
             .then(response => response.data)
     },
-   followUser(userId) {
+    followUser(userId) {
         return instance
             .post(`follow/${userId}`, {})
             .then(response => response.data)
@@ -24,10 +24,9 @@ export const usersAPI = {
             .delete(`follow/${userId}`)
             .then(response => response.data)
     },
-    getUserProfile(userId) {
-        return instance
-            .get(`profile/${userId}`)
-            .then(response => response.data)
+    getProfile(userId) {
+        console.warn('Obsolete method. Please use profileAPI object')
+        return profileAPI.getProfile(userId)
     }
 }
 
@@ -35,6 +34,23 @@ export const authAPI = {
     authMe() {
         return instance.get(`auth/me`).then(response => response.data)
     }
+}
+
+export const profileAPI = {
+    getProfile(userId) {
+        return instance
+            .get(`profile/${userId}`)
+            .then(response => response.data)
+    },
+    getStatus(userId) {
+        return instance
+            .get(`profile/status/${userId}`)
+
+    },
+    updateStatus(status) {
+        return instance
+            .put(`profile/status`, { status: status })
+    },
 }
 
 
