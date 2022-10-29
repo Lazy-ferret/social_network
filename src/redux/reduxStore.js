@@ -9,7 +9,7 @@ const reducers = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     usersPage: usersReducer,
-    auth: authReducer
+    auth: authReducer,
 })
 
 const store = createStore(reducers, applyMiddleware(thunkMiddleware))
