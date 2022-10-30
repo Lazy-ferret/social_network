@@ -7,21 +7,15 @@ const MyPosts = (props) => {
 
     const postsElements = props.posts.map(post => <Post message={post.message} likesCount={post.likesCount} key={post.id} />)
 
-    // const newPostElement = React.createRef()
-
-    // const onAddPostClick = () => {
-    //     props.addPost()
-    // }
-
-    // const onPostChange = () => {
-    //     let text = newPostElement.current.value
-    //     props.udpateNewPostText(text)
-    // }
+    const onAddNewMessageClick = (values) => {
+        props.addPost(values.newPostText)
+        values.newPostText = ''
+    }
 
     return (
         <div className={s.posts_block}>
             <h3>My posts</h3>
-            <AddPostForm {...props}/>
+            <AddPostForm onSubmit={onAddNewMessageClick} />
             <div className={s.posts}>
                 {postsElements}
             </div>
@@ -30,20 +24,14 @@ const MyPosts = (props) => {
 }
 
 
-const AddPostForm = (props) => {
-
-    const onAddNewMessageClick = (values) => {
-        props.addPost(values.newPostText)
-        values.newPostText = ''
-    }
-
-
-return (
-<Form
+const AddPostForm = ({onSubmit}) => {
+   
+    return (
+        <Form
             initialValues={{
                 newPostText: ''
             }}
-            onSubmit={onAddNewMessageClick}
+            onSubmit={onSubmit}
         >
             {({ handleSubmit }) => (
                 <form onSubmit={handleSubmit}>
@@ -61,10 +49,7 @@ return (
                 </form>
             )}
         </Form>
-
-)
-
-   
+    )
 }
 
 export default MyPosts

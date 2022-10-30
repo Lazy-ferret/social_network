@@ -10,16 +10,11 @@ const Dialogs = (props) => {
 
     const dialogsElements = state.dialogs.map(dialog => <DialogItem name={dialog.name} key={dialog.id} id={dialog.id} />)
     const messagesElements = state.messages.map(message => <Message message={message.message} key={message.id} />)
-    // const newMessageText = state.newMessageText
 
-    // const onInputChange = (e) => {
-    //     let text = e.target.value
-    //     props.udpateNewMessageText(text)
-    // }
-
-    // const onAddNewMessageClick = () => {
-    //     props.onMessageSend()
-    // }
+    const onAddNewMessageClick = (values) => {
+        props.onMessageSend(values.newMessageText)
+        values.newMessageText = ''
+    }
 
     return (
         <div className={s.dialogs}>
@@ -29,26 +24,20 @@ const Dialogs = (props) => {
 
             <div className={s.messages}>
                 <div>{messagesElements}</div>
-                <AddMessageForm {...props} />
-
+                <AddMessageForm onSubmit={onAddNewMessageClick} />
             </div>
         </div>
     )
 }
 
-const AddMessageForm = (props) => {
-
-    const onAddNewMessageClick = (values) => {
-        props.onMessageSend(values.newMessageText)
-        values.newMessageText = ''
-    }
+const AddMessageForm = ({ onSubmit }) => {
 
     return (
         <Form
             initialValues={{
                 newMessageText: ''
             }}
-            onSubmit={onAddNewMessageClick}
+            onSubmit={onSubmit}
         >
             {({ handleSubmit }) => (
                 <form onSubmit={handleSubmit}>
@@ -66,7 +55,6 @@ const AddMessageForm = (props) => {
                 </form>
             )}
         </Form>
-
     )
 }
 
