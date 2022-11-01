@@ -1,5 +1,7 @@
 import React from 'react'
 import { Field, Form } from 'react-final-form'
+import { composeValidators, maxLengthCreator, requiredField } from '../../utils/validators/validators'
+import { Textarea } from '../common/FormsControl/FormsControl'
 import DialogItem from './DialogItem/DialogItem'
 import s from './Dialogs.module.css'
 import Message from './Message/Message'
@@ -21,7 +23,6 @@ const Dialogs = (props) => {
             <div className={s.dialogs_items}>
                 {dialogsElements}
             </div>
-
             <div className={s.messages}>
                 <div>{messagesElements}</div>
                 <AddMessageForm onSubmit={onAddNewMessageClick} />
@@ -43,9 +44,10 @@ const AddMessageForm = ({ onSubmit }) => {
                 <form onSubmit={handleSubmit}>
 
                     <div>
-                        <Field component={'textarea'}
+                        <Field component={Textarea}
                             name={'newMessageText'}
                             placeholder={'Enter your message'}
+                            validate={composeValidators(requiredField, maxLengthCreator(10))}
                         />
                     </div>
                     <div>
