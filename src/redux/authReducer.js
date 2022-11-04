@@ -38,7 +38,7 @@ export const setError = (error) => ({ type: SET_ERROR, error })
 export const setAuthUserData = (userId, email, login, isAuth, error) => ({ type: SET_USER_DATA, payload: { userId, email, login, isAuth, error } })
 
 export const getAuthUserData = () => (dispatch) => {
-    authAPI.authMe()
+    return authAPI.authMe()
         .then(data => {
             if (data.resultCode === 0) {
                 let { id, email, login } = data.data
