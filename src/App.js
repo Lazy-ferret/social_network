@@ -15,7 +15,6 @@ import { initializeApp } from './../src/redux/appReducer'
 import { compose } from 'redux';
 import withRouter from './hoc/WithRouter';
 import Preloader from './components/common/Preloader/Preloader';
-import { withAuthRedirect } from './hoc/WithAuthRedirect';
 
 class App extends React.Component {
   componentDidMount() {
@@ -41,18 +40,15 @@ class App extends React.Component {
 
             <Route
               path="/dialogs/*"
-              element={<DialogsContainer />}
-            />
+              element={<DialogsContainer />} />
 
             <Route
               path="/users"
-              element={<UsersContainer />}
-            />
+              element={<UsersContainer />} />
 
             <Route
               path="/login"
-              element={<Login />}
-            />
+              element={<Login />} />
 
             <Route path="/news"
               element={<News />} />
@@ -76,54 +72,7 @@ const mapStateToProps = (state) => ({
   initialized: state.app.initialized
 })
 
-
 export default compose(
   withRouter,
   connect(mapStateToProps, { initializeApp })
 )(App);
-
-// const App = (props) => {
-
-//   return (
-//     <div className="app-wrapper">
-//       <HeaderContainer />
-
-//       <Navbar />
-
-//       <div className='app-wrapper-content'>
-//         <Routes >
-//           <Route path="/profile/" element={<ProfileContainer />}>
-//             <Route path=":userId" element={<ProfileContainer />} />
-//           </Route>
-
-//           <Route
-//             path="/dialogs/*"
-//             element={<DialogsContainer />}
-//           />
-
-//           <Route
-//             path="/users"
-//             element={<UsersContainer />}
-//           />
-
-//           <Route
-//             path="/login"
-//             element={<Login />}
-//           />
-
-//           <Route path="/news"
-//             element={<News />} />
-
-//           <Route
-//             path="/music"
-//             element={<Music />} />
-
-//           <Route
-//             path="/settings"
-//             element={<Settings />} />
-//         </Routes>
-
-//       </div>
-//     </div>
-//   );
-// }

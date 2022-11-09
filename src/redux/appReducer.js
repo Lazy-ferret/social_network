@@ -1,15 +1,12 @@
-import { authAPI } from "../api/api"
 import { getAuthUserData } from "./authReducer"
 
-const INITIALIZED_SUCCESS = 'INITIALIZED_SUCCESS'
+const INITIALIZED_SUCCESS = 'social-network/app/INITIALIZED_SUCCESS'
 
 const initialState = {
-    initialized: false,
-
+    initialized: false
 }
 
 const appReducer = (state = initialState, action) => {
-
     switch (action.type) {
         case INITIALIZED_SUCCESS:
             return {
@@ -23,7 +20,6 @@ const appReducer = (state = initialState, action) => {
 
 export const initializedSuccess = () => ({ type: INITIALIZED_SUCCESS })
 
-
 export const initializeApp = () => (dispatch) => {
     const dispatchResult = dispatch(getAuthUserData())
     Promise.all([dispatchResult])
@@ -33,5 +29,3 @@ export const initializeApp = () => (dispatch) => {
 }
 
 export default appReducer
-
-

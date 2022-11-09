@@ -9,6 +9,8 @@ import style from './Login.module.css'
 
 
 const LoginForm = (props) => {
+    const { onSubmit, error } = props
+
     return (
         <Form
             initialValues={{
@@ -16,8 +18,7 @@ const LoginForm = (props) => {
                 password: '',
                 rememberMe: false
             }}
-            onSubmit={props.onSubmit}
-        >
+            onSubmit={onSubmit}>
             {({ handleSubmit }) => (
                 <form onSubmit={handleSubmit}>
 
@@ -26,9 +27,7 @@ const LoginForm = (props) => {
                             component={Input}
                             name={'email'}
                             validate={requiredField}
-                            placeholder={'Email'}
-                        />
-
+                            placeholder={'Email'} />
                     </div>
                     <div>
                         <Field component={Input}
@@ -40,7 +39,7 @@ const LoginForm = (props) => {
                     <div>
                         <Field component={Input} name={'rememberMe'} type={'checkbox'} /> remember me
                     </div>
-                    {props.error && <div className={style.formError}>{props.error}</div>}
+                    {error && <div className={style.formError}>{error}</div>}
                     <div>
                         <button>Login</button>
                     </div>
@@ -50,16 +49,13 @@ const LoginForm = (props) => {
     )
 }
 
-
 const Login = (props) => {
     const onSubmit = (formData) => {
         props.login(formData.email, formData.password, formData.rememberMe)
     }
 
     if (props.isAuth) {
-        return <Navigate to='/profile'
-            replace={true}
-        />
+        return <Navigate to='/profile' />
     }
 
     return (
@@ -67,7 +63,6 @@ const Login = (props) => {
             <h1>Login</h1>
             <LoginForm onSubmit={onSubmit} error={props.error} />
         </div>
-
     )
 }
 

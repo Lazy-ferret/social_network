@@ -9,12 +9,11 @@ import withRouter from "../../hoc/WithRouter";
 class ProfileContainer extends React.Component {
 
     componentDidMount() {
-
         let userId = this.props.params.userId
         if (!userId) {
             userId = this.props.authorizedUserId
             if (!userId) {
-                
+
                 this.props.history.push('/login')
             }
         }
@@ -23,7 +22,6 @@ class ProfileContainer extends React.Component {
     }
 
     render() {
-
         return (
             <Profile {...this.props}
                 profile={this.props.profile}
