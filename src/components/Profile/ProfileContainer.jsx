@@ -8,7 +8,7 @@ import withRouter from "../../hoc/WithRouter";
 
 class ProfileContainer extends React.Component {
 
-    componentDidMount() {
+    updateProfile() {
         let userId = this.props.params.userId
         if (!userId) {
             userId = this.props.authorizedUserId
@@ -19,6 +19,16 @@ class ProfileContainer extends React.Component {
         }
         this.props.getUserProfile(userId);
         this.props.getStatus(userId)
+    }
+
+    componentDidMount() {
+        this.updateProfile()
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.params.userId !== prevProps.params.userId) {
+            this.updateProfile()
+        }
     }
 
     render() {
