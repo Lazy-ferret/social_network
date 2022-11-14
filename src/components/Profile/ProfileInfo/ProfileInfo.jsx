@@ -5,6 +5,7 @@ import styles from './ProfileInfo.module.css'
 import ProfileStatusWithHooks from "./ProfileStatus/ProfileStatusWithHooks";
 import userPhoto from './../../../assets/images/user.jpg'
 import ProfileDataForm from "./ProfileDataForm";
+import ProfileData from "./ProfileData";
 
 const ProfileInfo = ({ profile, savePhoto, isOwner, status, updateStatus, updateProfile, error }) => {
     const [editMode, setEditMode] = useState(false)
@@ -44,45 +45,6 @@ const ProfileInfo = ({ profile, savePhoto, isOwner, status, updateStatus, update
                 <ProfileStatusWithHooks status={status} updateStatus={updateStatus} />
                 {/* <ProfileStatus status={props.status} updateStatus={props.updateStatus} /> */}
             </div>
-        </div>
-    )
-}
-
-const ProfileData = ({ profile, isOwner, toEditMode }) => {
-    return (
-        <div className={styles.description}>
-            <div className={styles.name}>{profile.fullName}</div>
-
-            {profile.aboutMe && <div>
-                {<span><b>About me:</b>{profile.aboutMe}</span>}
-            </div>}
-
-            <div>
-                {<span><b>Open to work:</b>{profile.lookingForAJob ? 'YES' : 'NO'}</span>}
-            </div>
-
-            {profile.lookingForAJob && profile.lookingForAJobDescription &&
-                <span><b>My skills:</b>{profile.lookingForAJobDescription}</span>
-            }
-
-            <div className={styles.contacts}>
-                <b>Contacts:</b>
-                {Object.keys(profile.contacts).map(key => {
-                    return profile.contacts[key] && <Contact key={key}
-                        contactTitle={key}
-                        contactValue={profile.contacts[key]} />
-                })}
-            </div>
-            {isOwner && <div><button onClick={toEditMode}>edit</button></div>}
-        </div>
-    )
-}
-
-const Contact = ({ contactTitle, contactValue }) => {
-    return (
-        <div>
-            <b>{contactTitle}:</b>
-            <span>{contactValue}</span>
         </div>
     )
 }
