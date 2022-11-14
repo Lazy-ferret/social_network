@@ -5,6 +5,7 @@ const SET_USER_PROFILE = 'social-network/profile/SET_USER_PROFILE'
 const SET_STATUS = 'social-network/profile/SET_STATUS'
 const DELETE_POST = 'social-network/profile/DELETE_POST'
 const SAVE_PHOTO_SUCCESS = 'social-network/profile/SAVE_PHOTO_SUCCESS'
+const SET_ERROR = 'social-network/profile/SET_ERROR'
 
 const initialState = {
     posts: [
@@ -12,8 +13,9 @@ const initialState = {
         { id: 2, message: "It's my first post", likesCount: 15 },
     ],
     profile: null,
-    status: '', 
-    photos: []
+    status: '',
+    photos: [], 
+    error: null
 }
 
 const profileReducer = (state = initialState, action) => {
@@ -43,9 +45,14 @@ const profileReducer = (state = initialState, action) => {
         }
         case SAVE_PHOTO_SUCCESS: {
             return {
-                ...state, profile: {...state.profile, photos: action.photos}
+                ...state, profile: { ...state.profile, photos: action.photos }
             }
         }
+        case SET_ERROR:
+            return {
+                ...state,
+                error: action.error
+            }
         default:
             return state
     }
@@ -63,9 +70,12 @@ export const getUserProfile = (userId) => async (dispatch) => {
     const response = await usersAPI.getProfile(userId)
 
     dispatch(setUserProfile(response))
+    dispatch(setError(null))
 }
 
 export const setStatus = (status) => ({ type: SET_STATUS, status })
+
+export const setError = (error) => ({ type: SET_ERROR, error })
 
 export const getStatus = (userId) => async (dispatch) => {
     const response = await profileAPI.getStatus(userId)
@@ -87,5 +97,18 @@ export const savePhoto = (file) => async (dispatch) => {
     }
 }
 
+export const updateProfile = (profile) => async (dispatch, getState) => {
+    const userId = getState().auth.userId
+    const response = await profileAPI.updateProfile(profile)
+    
+    if (response.data.resultCode === 0) {
+        dispatch(getUserProfile(userId))
+    }
+    if (response.data.resultCode !== 0) {
+        const message = response.data.messages.length > 0 ? response.data.messages[0] : 'Some error'
+        dispatch(setError(message))
+        return Promise.reject(message)
+    }
+}
 
 export default profileReducer
