@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import { connect } from 'react-redux';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Login from './components/Login/Login';
@@ -18,8 +18,18 @@ const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsCo
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
 
 class App extends React.Component {
+  
+  // catchAllUnhandledErrors = (promiseRejectionEvent) => {
+  //   alert('Some error ')
+  // }
+  
   componentDidMount() {
     this.props.initializeApp()
+    // window.addEventListener('unhandledrejection', this.catchAllUnhandledErrors)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('unhandledrejection', this.catchAllUnhandledErrors)
   }
 
   render() {
@@ -28,6 +38,8 @@ class App extends React.Component {
     }
 
     return (
+
+
       <div className="app-wrapper">
         <HeaderContainer />
 
@@ -36,6 +48,9 @@ class App extends React.Component {
         <div className='app-wrapper-content'>
           <Suspense fallback={<Preloader />}>
             <Routes >
+
+              <Route exact path="/" element={<Navigate to={'/profile'} />} />
+
               <Route path="/profile/" element={<ProfileContainer />}>
                 <Route path=":userId" element={<ProfileContainer />} />
               </Route>
@@ -63,10 +78,17 @@ class App extends React.Component {
               <Route
                 path="/settings"
                 element={<Settings />} />
+
+              <Route
+                path="*"
+                element={<div>404 NOT FOUND</div>} />
             </Routes>
           </Suspense>
         </div>
       </div>
+
+
+
     );
   }
 }

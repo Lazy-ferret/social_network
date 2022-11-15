@@ -14,7 +14,7 @@ const initialState = {
     ],
     profile: null,
     status: '',
-    photos: [], 
+    photos: [],
     error: null
 }
 
@@ -68,7 +68,6 @@ export const savePhotoSuccess = (photos) => ({ type: SAVE_PHOTO_SUCCESS, photos 
 
 export const getUserProfile = (userId) => async (dispatch) => {
     const response = await usersAPI.getProfile(userId)
-
     dispatch(setUserProfile(response))
     dispatch(setError(null))
 }
@@ -79,7 +78,6 @@ export const setError = (error) => ({ type: SET_ERROR, error })
 
 export const getStatus = (userId) => async (dispatch) => {
     const response = await profileAPI.getStatus(userId)
-
     dispatch(setStatus(response.data))
 }
 
@@ -98,16 +96,19 @@ export const savePhoto = (file) => async (dispatch) => {
 }
 
 export const updateProfile = (profile) => async (dispatch, getState) => {
-    const userId = getState().auth.userId
-    const response = await profileAPI.updateProfile(profile)
-    
-    if (response.data.resultCode === 0) {
-        dispatch(getUserProfile(userId))
-    }
-    if (response.data.resultCode !== 0) {
-        const message = response.data.messages.length > 0 ? response.data.messages[0] : 'Some error'
-        dispatch(setError(message))
-        return Promise.reject(message)
+    try {
+        const userId = getState().auth.userId
+        const response = await profileAPI.updateProfile(profile)
+        if (response.data.resultCode === 0) {
+            dispatch(getUserProfile(userId))
+        }
+        if (response.data.resultCode !== 0) {
+            const message = response.data.messages.length > 0 ? response.data.messages[0] : 'Some error'
+            dispatch(setError(message))
+            return Promise.reject(message)
+        }
+    } catch (error) {
+        console.log(error.message)
     }
 }
 

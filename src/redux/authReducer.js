@@ -16,34 +16,25 @@ const initialState = {
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_USER_DATA:
-            return {
-                ...state,
-                ...action.payload,
-            }
         case SET_ERROR:
-            return {
-                ...state,
-                error: action.error
-            }
         case GET_CAPTCHA_URL_SUCCESS:
             return {
                 ...state,
-                captchaUrl: action.captchaUrl
+                ...action.payload,
             }
         default:
             return state
     }
 }
 
-export const setError = (error) => ({ type: SET_ERROR, error })
+export const setError = (error) => ({ type: SET_ERROR, payload: { error } })
 
 export const setAuthUserData = (userId, email, login, isAuth, error) => ({ type: SET_USER_DATA, payload: { userId, email, login, isAuth, error } })
 
-export const getCaptchaUrlSuccess = (captchaUrl) => ({ type: GET_CAPTCHA_URL_SUCCESS, captchaUrl })
+export const getCaptchaUrlSuccess = (captchaUrl) => ({ type: GET_CAPTCHA_URL_SUCCESS, payload: { captchaUrl } })
 
 export const getAuthUserData = () => async (dispatch) => {
     const response = await authAPI.authMe()
-
     if (response.resultCode === 0) {
         let { id, email, login } = response.data
         dispatch(setAuthUserData(id, email, login, true, null))
@@ -52,7 +43,6 @@ export const getAuthUserData = () => async (dispatch) => {
 
 export const login = (email, password, rememberMe, captcha) => async (dispatch) => {
     const response = await authAPI.login(email, password, rememberMe, captcha)
-
     if (response.data.resultCode === 0) {
         dispatch(getAuthUserData())
     } else {
@@ -66,7 +56,6 @@ export const login = (email, password, rememberMe, captcha) => async (dispatch) 
 
 export const logout = () => async (dispatch) => {
     const response = await authAPI.logout()
-
     if (response.data.resultCode === 0) {
         dispatch(setAuthUserData(null, null, null, false, null, null))
     }
@@ -79,5 +68,3 @@ export const getCaptchaUrl = () => async (dispatch) => {
 }
 
 export default authReducer
-
-
