@@ -9,14 +9,15 @@ import style from './Login.module.css'
 
 
 const LoginForm = (props) => {
-    const { onSubmit, error } = props
+    const { onSubmit, error, captchaUrl } = props
 
     return (
         <Form
             initialValues={{
                 email: '',
                 password: '',
-                rememberMe: false
+                rememberMe: false, 
+                captcha: null
             }}
             onSubmit={onSubmit}>
             {({ handleSubmit }) => (
@@ -39,6 +40,12 @@ const LoginForm = (props) => {
                     <div>
                         <Field component={Input} name={'rememberMe'} type={'checkbox'} /> remember me
                     </div>
+                    {captchaUrl && <img src={captchaUrl} alt='captcha'/>}
+                    {captchaUrl && <Field component={Input}
+                            name={'captcha'}
+                            validate={requiredField}
+                            placeholder={'captcha'} />}
+
                     {error && <div className={style.formError}>{error}</div>}
                     <div>
                         <button>Login</button>
@@ -51,7 +58,7 @@ const LoginForm = (props) => {
 
 const Login = (props) => {
     const onSubmit = (formData) => {
-        props.login(formData.email, formData.password, formData.rememberMe)
+        props.login(formData.email, formData.password, formData.rememberMe, formData.captcha)
     }
 
     if (props.isAuth) {
@@ -61,14 +68,15 @@ const Login = (props) => {
     return (
         <div>
             <h1>Login</h1>
-            <LoginForm onSubmit={onSubmit} error={props.error} />
+            <LoginForm onSubmit={onSubmit} error={props.error} captchaUrl={props.captchaUrl} />
         </div>
     )
 }
 
 const mapStateToProps = (state) => ({
     isAuth: state.auth.isAuth,
-    error: state.auth.error
+    error: state.auth.error,
+    captchaUrl: state.auth.captchaUrl
 })
 
 export default connect(mapStateToProps, { login })(Login)
