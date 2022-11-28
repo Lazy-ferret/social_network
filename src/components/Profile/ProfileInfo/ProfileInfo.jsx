@@ -27,10 +27,6 @@ const ProfileInfo = ({ profile, savePhoto, isOwner, status, updateStatus, update
 
     return (
         <div >
-            <div>
-                <img src='https://avatars.mds.yandex.net/i?id=0d179fbb661a0c4b1caa54cce39e5054-5449619-images-thumbs&n=13&exp=1' alt='' />
-            </div>
-
             <div >
                 <img className={styles.profilePhoro} src={profile.photos.large || userPhoto} alt='profile_photo' />
                 {isOwner && <input type='file' onChange={onMainPhotoChanged} />}

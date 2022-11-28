@@ -1,6 +1,10 @@
 .header {
-  background-color: green;
+  background-color:  rgb(232, 235, 238);
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.5);
   grid-area: h;
+
+  border-radius: 2rem;
+  padding: 2rem;
 }
 
 .header img {
@@ -13,6 +17,6 @@
 }
 
 .login_block a {
-  color: wheat;
+ 
   text-decoration: none;
 }
